@@ -1,9 +1,8 @@
-Start by reading through the SRS.md file and understanding the requirements of the app.
+Start by reading through the ./SRS.md file and understanding the requirements of the app. 
 
-We will start by building the Settings view first, this is where the settings are set, for the game.
+The Settings view has been built. Now focus on the Game view.
 
-There is a button on this screen, leave the behaviour empty for now. We will add the behaviour later.
+The button at the top of the Settings view must navigate to the Game view.
 
-I want all code related to this view in a separate sub folder. We will attempt to retain some kind of decent structure for the code. Do try to split the code into smaller files, and use the appropriate naming conventions.
+I want all code related to the game view in a separate sub folder, similar to what we did for the Settings view. You must attempt to retain good structure for the code. Do try to split the code into smaller files, and use the appropriate naming conventions.
 
-I am recommended to use TvLazyColumn for the Settings view.

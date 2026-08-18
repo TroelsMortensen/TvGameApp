@@ -5,10 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -30,10 +26,11 @@ import pastimegames.colorzone.settings.model.GameColor
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun SettingsScreen(
+    state: SettingsUiState,
+    onStateChange: (SettingsUiState) -> Unit,
+    onStartGame: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var state by remember { mutableStateOf(SettingsDefaults.initial) }
-
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -42,7 +39,7 @@ fun SettingsScreen(
         item {
             StartGameButton(
                 enabled = state.canStart,
-                onClick = {},
+                onClick = onStartGame,
             )
         }
 
@@ -56,7 +53,7 @@ fun SettingsScreen(
                     ColorSquare(
                         color = color,
                         selected = color in state.selectedColors,
-                        onClick = { state = state.toggleColor(color) },
+                        onClick = { onStateChange(state.toggleColor(color)) },
                     )
                 }
             }
@@ -68,7 +65,7 @@ fun SettingsScreen(
                     ColorSquare(
                         color = color,
                         selected = color in state.selectedColors,
-                        onClick = { state = state.toggleColor(color) },
+                        onClick = { onStateChange(state.toggleColor(color)) },
                     )
                 }
             }
@@ -84,7 +81,7 @@ fun SettingsScreen(
                     IconSquare(
                         icon = icon,
                         selected = icon in state.selectedIcons,
-                        onClick = { state = state.toggleIcon(icon) },
+                        onClick = { onStateChange(state.toggleIcon(icon)) },
                     )
                 }
             }
@@ -96,7 +93,7 @@ fun SettingsScreen(
                     IconSquare(
                         icon = icon,
                         selected = icon in state.selectedIcons,
-                        onClick = { state = state.toggleIcon(icon) },
+                        onClick = { onStateChange(state.toggleIcon(icon)) },
                     )
                 }
             }
@@ -112,7 +109,7 @@ fun SettingsScreen(
                     DurationSquare(
                         duration = duration,
                         selected = state.selectedDuration == duration,
-                        onClick = { state = state.selectDuration(duration) },
+                        onClick = { onStateChange(state.selectDuration(duration)) },
                     )
                 }
             }
@@ -156,7 +153,7 @@ private fun IconSquare(
     SelectableSquare(
         selected = selected,
         onClick = onClick,
-        backgroundColor = MaterialTheme.colorScheme.surface,
+        backgroundColor = Color.White,
     ) {
         Image(
             painter = painterResource(icon.drawableRes),

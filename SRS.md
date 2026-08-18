@@ -37,9 +37,11 @@ The app will consist of two views.
    15) Zero or more hands or feet icons can be selected, this will not affect the start button.
    16) The user can select or deselect colors, and hands or feet icons, and number squares.
 2)  The Game view, shown when the user presses the start button.
-   1) The game view will show a single circle on a black background. The circle fill 80% of the screen hight.
+   1) The game view will show a single circle on a black background. The circle fill 70% of the screen hight. The circle is centered on the screen, horizontally and vertically.
    2) At intervals of the selected number on the previous screen, the circle will be colored by selecting a random color from the selected colors. A color cannot be selected more than once in a row.
    3) Whenever the circle color changes, there is a 50% chance that the circle will be filled with a hand or foot icon, if any was selected on the previous screen.
    4) The shown hand or foot icon is selected at random from the selected icons on the previous screen. The same icon can be shown more than once in a row, there is no limit here.
    5) This loop will continue until the player presses the remote control's back button, which will return to the main view.
+   6) Around the circle, there is a number of annular sectors, the number of sectors is equal to the number of selected seconds. The sectors are evenly spaced around the circle, to form sort of a clock face. We use these to count down the seconds to the next color change. For each second, remove a sector, until the countdown reaches zero, at which point the circle will be colored with the next color in the sequence. The annular sectors are reset. You may dynamically generate the sectors, or hard code the numbers matching the available number of seconds: 5, 7, 10, 15. 
+   7) When clicking back on the remote control, navigate back to the Settings view.
       
