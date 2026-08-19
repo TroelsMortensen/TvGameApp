@@ -15,23 +15,23 @@ The app will consist of two views.
    1) 
 
 
-## Task 1
+## Task 1 - DONE!
 I need a way to add colors, instead of predefining them. A color picker, which must be persisted.
 Matching colors on dev monitor to tv to the floor mats, just not possible.      
 
-## Task 2
+## Task 2 - POSTPONED!
 
 Persist recent selection of colors, time, hand/feet icons.
 
-## Task 3
+## Task 3 - NEXT UP!
 
 Delete an existing colour. Hold to fill a 1.5s progress ring on the color to delete. Release to cancel
 
-## Task 4
+## Task 4 - ON HOLD!
 
 Make the focused card in settings screen clearer.
 
-## Task 5
+## Task 5 - NEXT UP!
 
 Update so the game cannot start without at least one selected colour.
 
