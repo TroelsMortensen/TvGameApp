@@ -5,6 +5,7 @@ import pastimegames.colorzone.settings.model.DurationSeconds
 import pastimegames.colorzone.settings.model.GameColor
 
 data class SettingsUiState(
+    val palette: List<GameColor>,
     val selectedColors: Set<GameColor>,
     val selectedIcons: Set<BodyIcon>,
     val selectedDuration: DurationSeconds,
@@ -20,6 +21,14 @@ data class SettingsUiState(
             updated.add(color)
         }
         return copy(selectedColors = updated)
+    }
+
+    fun addColor(color: GameColor): SettingsUiState {
+        val updatedPalette = if (color in palette) palette else palette + color
+        return copy(
+            palette = updatedPalette,
+            selectedColors = selectedColors + color,
+        )
     }
 
     fun toggleIcon(icon: BodyIcon): SettingsUiState {

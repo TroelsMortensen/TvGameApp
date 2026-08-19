@@ -2,12 +2,17 @@ package pastimegames.colorzone.settings.model
 
 import androidx.compose.ui.graphics.Color
 
-enum class GameColor(val composeColor: Color) {
-    Blue(Color(0xFF4A90D9)),
-    PaleGreen(Color(0xFFB8E6B8)),
-    Red(Color(0xFFE53935)),
-    PaleYellow(Color(0xFFFFF59D)),
-    Lavender(Color(0xFFCE93D8)),
-    Orange(Color(0xFFFFB74D)),
-    Pink(Color(0xFFF39FBB)),
+@JvmInline
+value class GameColor(val rgb: Int) {
+    val composeColor: Color
+        get() = Color(rgb or 0xFF000000.toInt())
+
+    fun toHex(): String = "%06X".format(rgb and 0xFFFFFF)
+
+    companion object {
+        fun fromHex(hex: String): GameColor? {
+            val parsed = hex.trim().removePrefix("#").toIntOrNull(16) ?: return null
+            return GameColor(parsed and 0xFFFFFF)
+        }
+    }
 }

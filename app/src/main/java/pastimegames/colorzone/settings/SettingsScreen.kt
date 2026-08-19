@@ -28,9 +28,13 @@ import pastimegames.colorzone.settings.model.GameColor
 fun SettingsScreen(
     state: SettingsUiState,
     onStateChange: (SettingsUiState) -> Unit,
+    onAddColor: () -> Unit,
     onStartGame: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val colorCells: List<GameColor?> = state.palette + listOf(null)
+    val colorRows = colorCells.chunked(4)
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -47,26 +51,22 @@ fun SettingsScreen(
             SettingsSectionTitle(text = "Colors")
         }
 
-        item {
-            SettingsGridRow(modifier = Modifier.padding(bottom = 16.dp)) {
-                GameColor.entries.take(4).forEach { color ->
-                    ColorSquare(
-                        color = color,
-                        selected = color in state.selectedColors,
-                        onClick = { onStateChange(state.toggleColor(color)) },
-                    )
-                }
-            }
-        }
-
-        item {
-            SettingsGridRow(modifier = Modifier.padding(bottom = 24.dp)) {
-                GameColor.entries.drop(4).forEach { color ->
-                    ColorSquare(
-                        color = color,
-                        selected = color in state.selectedColors,
-                        onClick = { onStateChange(state.toggleColor(color)) },
-                    )
+        colorRows.forEachIndexed { index, rowColors ->
+            item {
+                SettingsGridRow(
+                    modifier = Modifier.padding(bottom = if (index == colorRows.lastIndex) 24.dp else 16.dp),
+                ) {
+                    rowColors.forEach { color ->
+                        if (color == null) {
+                            AddColorSquare(onClick = onAddColor)
+                        } else {
+                            ColorSquare(
+                                color = color,
+                                selected = color in state.selectedColors,
+                                onClick = { onStateChange(state.toggleColor(color)) },
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -141,6 +141,23 @@ private fun ColorSquare(
         onClick = onClick,
         backgroundColor = color.composeColor,
     ) {}
+}
+
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Composable
+private fun AddColorSquare(onClick: () -> Unit) {
+    SelectableSquare(
+        selected = false,
+        onClick = onClick,
+        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+    ) {
+        Text(
+            text = "+",
+            fontSize = 44.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
 }
 
 @OptIn(ExperimentalTvMaterial3Api::class)

@@ -12,7 +12,8 @@ import pastimegames.colorzone.game.GameConfig
 import pastimegames.colorzone.game.GameScreen
 import pastimegames.colorzone.settings.SettingsDefaults
 import pastimegames.colorzone.settings.SettingsScreen
-import pastimegames.colorzone.settings.SettingsUiState
+import pastimegames.colorzone.settings.colorpicker.ColorPickerScreen
+import pastimegames.colorzone.settings.data.ColorPaletteStore
 import pastimegames.colorzone.ui.theme.ColorZoneTheme
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -21,22 +22,47 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ColorZoneTheme {
-                var settingsState by remember { mutableStateOf(SettingsDefaults.initial) }
-                var gameConfig by remember { mutableStateOf<GameConfig?>(null) }
+                val paletteStore = remember { ColorPaletteStore(applicationContext) }
+                var settingsState by remember {
+                    mutableStateOf(SettingsDefaults.initial(paletteStore.load()))
+                }
+                var screen by remember { mutableStateOf<Screen>(Screen.Settings) }
 
-                if (gameConfig != null) {
-                    GameScreen(
-                        config = gameConfig!!,
-                        onExit = { gameConfig = null },
-                    )
-                } else {
-                    SettingsScreen(
-                        state = settingsState,
-                        onStateChange = { settingsState = it },
-                        onStartGame = { gameConfig = GameConfig.from(settingsState) },
-                    )
+                when (val current = screen) {
+                    is Screen.Settings -> {
+                        SettingsScreen(
+                            state = settingsState,
+                            onStateChange = { settingsState = it },
+                            onAddColor = { screen = Screen.ColorPicker },
+                            onStartGame = { screen = Screen.Game(GameConfig.from(settingsState)) },
+                        )
+                    }
+
+                    is Screen.ColorPicker -> {
+                        ColorPickerScreen(
+                            onAddColor = { color ->
+                                settingsState = settingsState.addColor(color)
+                                paletteStore.save(settingsState.palette)
+                                screen = Screen.Settings
+                            },
+                            onBack = { screen = Screen.Settings },
+                        )
+                    }
+
+                    is Screen.Game -> {
+                        GameScreen(
+                            config = current.config,
+                            onExit = { screen = Screen.Settings },
+                        )
+                    }
                 }
             }
         }
     }
+}
+
+private sealed interface Screen {
+    data object Settings : Screen
+    data object ColorPicker : Screen
+    data class Game(val config: GameConfig) : Screen
 }
