@@ -82,7 +82,7 @@ fun ColorPickerScreen(
 
         Row(
             modifier = Modifier.weight(0.55f),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalArrangement = Arrangement.spacedBy(1.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             HsvBar(
@@ -118,8 +118,8 @@ fun ColorPickerScreen(
         }
 
         Column(
-            modifier = Modifier.weight(0.45f),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.weight(0.25f),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Button(
