@@ -35,12 +35,12 @@ fun SelectableSquare(
     Surface(
         onClick = onClick,
         modifier = modifier.size(size),
-        shape = ClickableSurfaceDefaults.shape(RoundedCornerShape(12.dp)),
+        shape = ClickableSurfaceDefaults.shape(RoundedCornerShape(8.dp)),
         colors = ClickableSurfaceDefaults.colors(
             containerColor = backgroundColor,
             focusedContainerColor = backgroundColor,
         ),
-        scale = ClickableSurfaceDefaults.scale(focusedScale = 1.08f),
+        scale = ClickableSurfaceDefaults.scale(focusedScale = 1.2f),
     ) {
         Box(
             modifier = Modifier
