@@ -34,6 +34,10 @@ class MainActivity : ComponentActivity() {
                             state = settingsState,
                             onStateChange = { settingsState = it },
                             onAddColor = { screen = Screen.ColorPicker },
+                            onDeleteColor = { color ->
+                                settingsState = settingsState.deleteColor(color)
+                                paletteStore.save(settingsState.palette)
+                            },
                             onStartGame = { screen = Screen.Game(GameConfig.from(settingsState)) },
                         )
                     }

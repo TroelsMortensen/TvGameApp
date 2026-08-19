@@ -31,6 +31,13 @@ data class SettingsUiState(
         )
     }
 
+    fun deleteColor(color: GameColor): SettingsUiState {
+        return copy(
+            palette = palette - color,
+            selectedColors = selectedColors - color,
+        )
+    }
+
     fun toggleIcon(icon: BodyIcon): SettingsUiState {
         val updated = selectedIcons.toMutableSet()
         if (icon in updated) {
