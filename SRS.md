@@ -1,37 +1,24 @@
-I am building an app for android tv. This workspace contains the initial project for the app. I think the only current code exists in the MainActivity.kt file. There is a tiny foundation of code in the app. This may be used. Or you may decide to start from scratch.
+# ColorZone
 
-It is based on a series of youtube videos called Tapete do Movimento.
+An Android TV game app inspired by the YouTube series *Tapete do Movimento*. Built with Kotlin and Jetpack Compose for TV.
 
-Programming language is kotlin.
+## Screens
 
-The app will consist of two views.
+### 1. Settings Screen
+Shown on launch. The user configures the game before starting:
+- **Colour palette** — a grid of user-defined colours. Colours can be added via a colour picker and deleted via a delete-mode toggle. Colours are persisted across sessions.
+- **Colour selection** — tap colours to select/deselect which ones are used in the game.
+- **Hands & feet icons** — select which body-part icons appear during gameplay.
+- **Duration** — choose the game timer duration in seconds.
+- **Start button** — launches the game. Disabled when no colours are selected.
 
-1) Settings view, shown when the app is launched.
-   1) A list of colors, with a button to add a new color.
-   2) A list of time options
-   3) A list of hand/feet icons
-   4) A button to start the game
-2) The Game view, shown when the user presses the start button.
-   1) 
+### 2. Colour Picker Screen
+Accessed from the "+" tile on the settings screen. Allows the user to pick a custom colour (HSV-based) and add it to the palette.
 
+### 3. Game Screen
+The active gameplay view. Displays randomised colour/icon prompts with a countdown timer. The user exits back to settings when the game ends or is manually exited.
 
-## Task 1 - DONE!
-I need a way to add colors, instead of predefining them. A color picker, which must be persisted.
-Matching colors on dev monitor to tv to the floor mats, just not possible.      
+## Backlog
 
-## Task 2 - POSTPONED!
-
-Persist recent selection of colors, time, hand/feet icons.
-
-## Task 3 - NEXT UP!
-
-Delete an existing colour. Hold to fill a 1.5s progress ring on the color to delete. Release to cancel
-
-## Task 4 - ON HOLD!
-
-Make the focused card in settings screen clearer.
-
-## Task 5 - NEXT UP!
-
-Update so the game cannot start without at least one selected colour.
-
+### Persist recent selections
+Persist the most recent selection of colours, duration, and hand/feet icons so they are restored on next launch.
